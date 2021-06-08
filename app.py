@@ -40,10 +40,9 @@ def info(wif, network):
         key = PrivateKeyTestnet(wif)
 
     return jsonify({
-        "version": key.version,
         "address": key.address,
-        "wif": key.to_wif(),
-        "balance": key.get_balance('btc'),
+        "btc": key.get_balance('btc'),
+        "fiat": key.get_balance('usd'),
         "trnx": key.get_transactions(),
     })
 
@@ -56,7 +55,7 @@ def send(wif, to, value, network):
     else:
         key = PrivateKeyTestnet(wif)
 
-    outputs = [(to, value, 'btc')]
+    outputs = [(to, value, 'usd')]
 
     tx_hash = key.send(outputs)
 
